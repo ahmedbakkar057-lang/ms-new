@@ -1,0 +1,21 @@
+services:
+  vps-panel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ms-vps-panel
+    restart: unless-stopped
+    ports:
+      - "20276:20276"
+    environment:
+      PORT: "20276"
+      RUN_BOT: "1"
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_ADMIN_ID: ${TELEGRAM_ADMIN_ID:-8122328795}
+      PANEL_URL: ${PANEL_URL:-}
+      BASE_PATH: /app/panel_data
+    volumes:
+      - panel_data:/app/panel_data
+
+volumes:
+  panel_data:
